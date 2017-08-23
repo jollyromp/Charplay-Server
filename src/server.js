@@ -4,8 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
-import UserSchema from './schema/UserSchema';
-import User from './mongoose/user';
+import schema from './schema';
 
 import {graphql} from 'graphql'
 import graphqlHTTP from 'express-graphql';
@@ -40,6 +39,6 @@ db.once('open', () => {
 // GraphQL Testing
 
 app.use('/graphql', graphqlHTTP (req => ({
-  schema: UserSchema,
+  schema: schema,
   graphiql: true
 })));

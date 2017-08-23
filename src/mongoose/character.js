@@ -15,6 +15,6 @@ var characterSchema = new Schema({
   
 // Exporting Schema
 
-var Character = mongoose.model('character', characterSchema);
+var Character = mongoose.model('Character', characterSchema);
 
 export default Character;

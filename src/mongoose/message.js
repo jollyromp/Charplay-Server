@@ -6,8 +6,8 @@ var mongoose = require('mongoose')
 // Message schema
 var messageSchema = new Schema({
     _author: { type: String, required: true, ref: 'User' },
-    _character: { type: Schema.Types.ObjectId, required: true, ref: 'Character' },
-    _room: { type: Schema.Types.ObjectId, required: true, ref: 'Room', index: true },
+    _character: { type: String, required: true, ref: 'Character' },
+    _room: { type: String, required: true, ref: 'Room', index: true },
     content: { type: String, required: true }
   });
 

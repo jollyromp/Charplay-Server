@@ -20,6 +20,6 @@ roomSchema.pre('save', function(next) {
 
 // Exporting Schema
 
-var Room = mongoose.model('Rookm', roomSchema);
+var Room = mongoose.model('Room', roomSchema);
 
 export default Room;
