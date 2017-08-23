@@ -1,11 +1,18 @@
 // Set up mongoose
 
-var mongoose = require('mongoose');
-var model = require('./model.js');
-var User = model.User;
-var Character = model.Character;
-var Room = model.Room;
-var Message = model.Message;
+import mongoose from 'mongoose';
+import User from './src/mongoose/user';
+import Character from './src/mongoose/character';
+import Room from './src/mongoose/room';
+import Message from './src/mongoose/message';
+
+var uri = 'mongodb://localhost:27017/rpc';
+mongoose.Promise = global.Promise;
+mongoose.connect(uri, {
+  keepAlive: true,
+  reconnectTries: Number.MAX_VALUE,
+  useMongoClient: true
+});
 
 // Setup async
 

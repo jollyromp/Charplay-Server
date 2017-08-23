@@ -1,27 +1,27 @@
 {
-  "name": "todo",
-  "version": "1.0.0",
-  "description": "Todo Express-MongoDB server",
+  "name": "Charplay-Server",
+  "version": "0.1.0",
+  "description": "Charplay Server",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "dev3": "babel-node  server.js"
-
+    "dev": "babel-node src/server.js",
+    "build": "babel src --out-dir build",
+    "start": "node build/server.js",
+    "init": "babel-node init.js"
   },
-  "author": "Gethyl George",
-  "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
     "graphql": "^0.10.5",
-    "mongoose": "^4.7.2"
+    "mongoose": "^4.7.2",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "nodemon": "^1.11.0"
+    "babel-preset-stage-0": "^6.16.0"
   }
 }
