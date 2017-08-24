@@ -2,7 +2,7 @@
   "name": "Charplay-Server",
   "version": "0.1.0",
   "description": "Charplay Server",
-  "licence": "MIT",
+  "license": "MIT",
   "scripts": {
     "dev": "babel-node src/server.js",
     "build": "babel src --out-dir build",
