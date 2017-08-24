@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import schema from './schema';
 
 import {graphql} from 'graphql'
-import graphqlHTTP from 'express-graphql';
+import graphqlExpress from 'express-graphql';
 
 // start the server
 
@@ -36,9 +36,9 @@ db.once('open', () => {
  console.log( '+++Connected to mongoose');
 });
 
-// GraphQL Testing
+// GraphQL Endpoint
 
-app.use('/graphql', graphqlHTTP (req => ({
-  schema: schema,
+app.use('/graphql', bodyParser.json(), graphqlExpress({
+  schema,
   graphiql: true
-})));
+}));

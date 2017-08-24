@@ -2,7 +2,7 @@
   "name": "Charplay-Server",
   "version": "0.1.0",
   "description": "Charplay Server",
-  "main": "server.js",
+  "licence": "MIT",
   "scripts": {
     "dev": "babel-node src/server.js",
     "build": "babel src --out-dir build",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.17.2",
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
     "graphql": "^0.10.5",
