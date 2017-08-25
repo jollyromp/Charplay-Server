@@ -61,7 +61,7 @@ var messageField = {
     var foundItems = new Promise((resolve, reject) => {
       Message.find({_room}, projections, (err, data) => {
         err ? reject(err) : resolve(data)
-      }).populate('_author _room')
+      }).populate('_author _character _room')
     })
 
     return foundItems

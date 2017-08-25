@@ -51,15 +51,23 @@ var roomField = {
   args: {
     _id: {
       name: '_id',
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
+    },
+    url: {
+      name: 'url',
+      type: GraphQLString
     }
   },
-  resolve: (root, {_id}, source, fieldASTs) => {
+  resolve: (root, {_id, url}, source, fieldASTs) => {
+    let args = {
+      ..._id && {_id},
+      ...url && {url}
+    }
     var projections = getProjection(fieldASTs);
     var foundItems = new Promise((resolve, reject) => {
-        Room.find({_id}, projections,(err, data) => {
-            err ? reject(err) : resolve(data)
-        }).populate('_owners')
+      Room.find(args).select(projections).populate('_owners').exec((err, data) => {
+        err ? reject(err) : resolve(data)
+      })
     })
 
     return foundItems

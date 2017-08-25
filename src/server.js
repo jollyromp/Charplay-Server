@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 
 import schema from './schema';
 
-import {graphql} from 'graphql'
+import { graphql, printSchema } from 'graphql';
 import graphqlExpress from 'express-graphql';
 
 // start the server
@@ -36,9 +36,32 @@ db.once('open', () => {
  console.log( '+++Connected to mongoose');
 });
 
+// CORS and different allowed methods
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+  if ('OPTIONS' === req.method) {
+    res.sendStatus(200);
+  }
+  else {
+    next();
+  }
+});
+
 // GraphQL Endpoint
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({
+app.get('/graphql', bodyParser.json(), graphqlExpress({
   schema,
   graphiql: true
 }));
+
+app.post('/graphql', bodyParser.json(), graphqlExpress({
+  schema
+}));
+
+app.use('/schema', (req, res) => {
+  res.type('text/plain').send(printSchema(schema));
+});
