@@ -9,8 +9,8 @@ import {
 } from 'graphql/type';
 
 import Room from '../../mongoose/room';
-
-import { userType } from './user';
+import roomType from '../type/roomType';
+import userType from '../type/userType';
 
 export function getProjection (fieldASTs) {
   return fieldASTs.fieldNodes[0].selectionSet.selections.reduce((projections, selection) => {
@@ -19,34 +19,7 @@ export function getProjection (fieldASTs) {
   }, {});
 }
 
-var roomType = new GraphQLObjectType({
-  name: 'room',
-  description: 'Room item',
-  fields: () => ({
-    _id: {
-      type: GraphQLString,
-      description: 'The id of the character.',
-    },
-    url: {
-      type: GraphQLString,
-      description: 'URL identifier for the room.',
-    },
-    name: {
-      type: GraphQLString,
-      description: 'Name of the room',
-    },
-    description: {
-      type: GraphQLString,
-      description: 'Description of the room',
-    },
-    _owners: {
-      type: new GraphQLList(userType),
-      description: 'Owner IDs',
-    }
-  })
-});
-
-var roomField = {
+var roomQuery = {
   type: new GraphQLList(roomType),
   args: {
     _id: {
@@ -74,4 +47,4 @@ var roomField = {
   }
 }
 
-export { roomField, roomType };
+export default roomQuery;

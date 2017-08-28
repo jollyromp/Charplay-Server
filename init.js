@@ -103,7 +103,7 @@ function insertRooms(data, cb) {
   var room = Room({
     _id: new mongoose.Types.ObjectId('59969db958f68a563e616dc4'),
     _owners: [data.user],
-    url: 'quiet-sunset-rJZpn8UOW',
+    url: 'rJZpn8UOW',
     name: "Test Room",
     description: "This is a room with a description",
     color: "#0074D9"

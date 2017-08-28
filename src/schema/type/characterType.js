@@ -8,16 +8,7 @@ import {
   GraphQLBoolean
 } from 'graphql/type';
 
-import Character from '../../mongoose/character';
-
-import { userType } from './user';
-
-export function getProjection (fieldASTs) {
-  return fieldASTs.fieldNodes[0].selectionSet.selections.reduce((projections, selection) => {
-    projections[selection.name.value] = true;
-    return projections;
-  }, {});
-}
+import userType from './userType';
 
 var characterType = new GraphQLObjectType({
   name: 'character',
@@ -50,24 +41,4 @@ var characterType = new GraphQLObjectType({
   })
 });
 
-var characterField = {
-  type: new GraphQLList(characterType),
-  args: {
-    _id: {
-      name: '_id',
-      type: new GraphQLNonNull(GraphQLString)
-    }
-  },
-  resolve: (root, {_id}, source, fieldASTs) => {
-    var projections = getProjection(fieldASTs);
-    var foundItems = new Promise((resolve, reject) => {
-        Character.find({_id}, projections,(err, data) => {
-            err ? reject(err) : resolve(data)
-        }).populate('_author')
-    })
-
-    return foundItems
-  }
-}
-
-export { characterField, characterType };
+export default characterType;

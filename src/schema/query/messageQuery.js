@@ -9,10 +9,10 @@ import {
 } from 'graphql/type';
 
 import Message from '../../mongoose/message';
-
-import { userType } from './user';
-import { characterType } from './character';
-import { roomType } from './room';
+import messageType from '../type/messageType';
+import userType from '../type/userType';
+import characterType from '../type/characterType';
+import roomType from '../type/roomType';
 
 export function getProjection (fieldASTs) {
   return fieldASTs.fieldNodes[0].selectionSet.selections.reduce((projections, selection) => {
@@ -21,34 +21,7 @@ export function getProjection (fieldASTs) {
   }, {});
 }
 
-var messageType = new GraphQLObjectType({
-  name: 'message',
-  description: 'Room item',
-  fields: () => ({
-    _id: {
-      type: GraphQLString,
-      description: 'The id of the message.',
-    },
-    _author: {
-      type: userType,
-      description: 'The id of the message author.',
-    },
-    _character: {
-      type: characterType,
-      description: 'The id of the message character.',
-    },
-    _room: {
-      type: roomType,
-      description: 'The id of the message room',
-    },
-    content: {
-      type: GraphQLString,
-      description: 'Content of the message.',
-    }
-  })
-});
-
-var messageField = {
+var messageQuery = {
   type: new GraphQLList(messageType),
   args: {
     _room: {
@@ -68,4 +41,4 @@ var messageField = {
   }
 }
 
-export { messageField, messageType };
+export default messageQuery;

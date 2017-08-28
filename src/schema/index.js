@@ -3,19 +3,27 @@ import {
   GraphQLSchema
 } from 'graphql/type';
 
-import { userField } from './field/user';
-import { characterField } from './field/character';
-import { roomField } from './field/room';
-import { messageField } from './field/message';
+import userQuery from './query/userQuery';
+import characterQuery from './query/characterQuery';
+import roomQuery from './query/roomQuery';
+import messageQuery from './query/messageQuery';
+
+import addMessageMutation from './mutation/addMessageMutation';
 
 var Schema = new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'RootQueryType',
+    name: 'Query',
     fields: {
-      user: userField,
-      character: characterField,
-      room: roomField,
-      message: messageField
+      user: userQuery,
+      character: characterQuery,
+      room: roomQuery,
+      message: messageQuery
+    }
+  }),
+  mutation: new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+      message: addMessageMutation
     }
   })
 });

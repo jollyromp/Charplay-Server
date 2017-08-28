@@ -9,6 +9,8 @@ import schema from './schema';
 import { graphql, printSchema } from 'graphql';
 import graphqlExpress from 'express-graphql';
 
+import Message from './mongoose/message';
+
 // start the server
 
 const app = express();

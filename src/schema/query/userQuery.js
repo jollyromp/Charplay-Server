@@ -9,6 +9,7 @@ import {
 } from 'graphql/type';
 
 import User from '../../mongoose/user';
+import userType from '../type/userType';
 
 export function getProjection (fieldASTs) {
   return fieldASTs.fieldNodes[0].selectionSet.selections.reduce((projections, selection) => {
@@ -17,33 +18,7 @@ export function getProjection (fieldASTs) {
   }, {});
 }
 
-var userType = new GraphQLObjectType({
-  name: 'user',
-  description: 'User item',
-  fields: () => ({
-    _id: {
-      type: GraphQLString,
-      description: 'The id of the user.',
-    },
-    tag: {
-      type: GraphQLString,
-      description: 'The discriminating tag of the user.',
-    },
-    username: {
-      type: GraphQLString,
-      description: 'The username of the user.',
-    },
-    password: {
-      type: GraphQLString,
-      description: 'The user\'s hashed password',
-      resolve() {
-        return null;
-      }
-    }
-  })
-});
-
-var userField = {
+var userQuery = {
   type: new GraphQLList(userType),
   args: {
     _id: {
@@ -63,4 +38,4 @@ var userField = {
   }
 }
 
-export { userField, userType };
+export default userQuery;
