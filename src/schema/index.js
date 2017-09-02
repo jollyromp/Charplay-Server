@@ -10,6 +10,8 @@ import messageQuery from './query/messageQuery';
 
 import addMessageMutation from './mutation/addMessageMutation';
 
+import messageAddedSubscription from './subscription/messageAddedSubscription';
+
 var Schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
@@ -24,6 +26,12 @@ var Schema = new GraphQLSchema({
     name: 'Mutation',
     fields: {
       message: addMessageMutation
+    }
+  }),
+  subscription: new GraphQLObjectType({
+    name: 'Subscription',
+    fields: {
+      messageAdded: messageAddedSubscription
     }
   })
 });

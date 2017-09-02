@@ -11,14 +11,33 @@ import graphqlExpress from 'express-graphql';
 
 import Message from './mongoose/message';
 
+import { execute, subscribe } from 'graphql';
+import { createServer } from 'http';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+
 // start the server
+
+const PORT = 8000;
 
 const app = express();
 
-app.use(bodyParser.urlencoded({extended:true}))
-app.listen(8000,()=> {console.log("+++Express Server is Running!!!")});
-app.get('/',(req,res)=>{
- res.sendFile(__dirname + '/index.html')
+app.use(bodyParser.urlencoded({extended:true}));
+
+// PubSub
+
+const ws = createServer(app);
+
+ws.listen(PORT, () => {
+  console.log(`GraphQL Server is now running on http://localhost:${PORT}`);
+  // Set up the WebSocket for handling GraphQL subscriptions
+  new SubscriptionServer({
+    execute,
+    subscribe,
+    schema
+  }, {
+    server: ws,
+    path: '/subscriptions',
+  });
 });
 
 // Mongoose Connection
@@ -55,13 +74,9 @@ app.use(function(req, res, next) {
 
 // GraphQL Endpoint
 
-app.get('/graphql', bodyParser.json(), graphqlExpress({
+app.use('/graphql', bodyParser.json(), graphqlExpress({
   schema,
   graphiql: true
-}));
-
-app.post('/graphql', bodyParser.json(), graphqlExpress({
-  schema
 }));
 
 app.use('/schema', (req, res) => {

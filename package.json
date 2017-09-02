@@ -15,8 +15,11 @@
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
     "graphql": "^0.10.5",
+    "graphql-server-express": "^1.1.2",
+    "graphql-subscriptions": "^0.4.4",
     "mongoose": "^4.7.2",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "subscriptions-transport-ws": "^0.8.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

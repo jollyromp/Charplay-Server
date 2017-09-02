@@ -3,6 +3,8 @@ import {
   GraphQLNonNull
 } from 'graphql/type';
 
+import pubsub from '../subscription/pubsub';
+
 import messageType from '../type/messageType';
 import Message from '../../mongoose/message';
 
@@ -32,7 +34,10 @@ var addMessageMutation = {
     return new Promise((resolve, reject) => {
       newMessage.save(function (err) {
         if (err) reject(err)
-        else resolve(newMessage)
+        else {
+          pubsub.publish('messageAdded', { messageAdded: newMessage });
+          resolve(newMessage);
+        }
       })
     })
   }
